@@ -10,7 +10,7 @@ abstract class Rule
      * @param [type] $value
      * @return void
      */
-    abstract public function isEmpty($field, $value);
+    abstract public function required($field, $value);
 
     /**
      *
