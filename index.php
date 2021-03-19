@@ -15,4 +15,4 @@ $validator->setRules([
     ]
 ]);
 
-dump($validator);
+$validator->validate();
