@@ -4,6 +4,8 @@ namespace App\Validation;
 
 use App\Validation\Rules\Rule;
 use App\Validation\Errors\ErrorBag;
+use App\Validation\Rules\RequiredRule;
+use App\Validation\Rules\EmailRule;
 
 class Validator
 {
@@ -21,6 +23,11 @@ class Validator
      *
      */
     protected $errors;
+
+    protected $ruleMap = [
+        'required' => RequiredRule::class,
+        'email' => EmailRule::class,
+    ];
 
     /**
      *
@@ -45,12 +52,34 @@ class Validator
     public function validate()
     {
         foreach ($this->rules as $field => $rules) {
-            foreach ($rules as $rule) {
+            //dump($this->resolveRules($rules));
+            foreach ($this->resolveRules($rules) as $rule) {
                 $this->validateRule($field, $rule);
             }
         }
 
         return $this->errors->hasErrors();
+    }
+
+    /**
+     *
+     * @param array $rules
+     * @return void
+     */
+    protected function resolveRules($rules)
+    {
+        return array_map(function ($rule) {
+            if (is_string($rule)) {
+                return $this->getRuleFromString($rule);
+            }
+
+            return $rule;
+        }, $rules);
+    }
+
+    protected function getRuleFromString($rule)
+    {
+        return new $this->ruleMap[$rule]();
     }
 
     protected function validateRule($field, Rule $rule)
