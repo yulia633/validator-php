@@ -3,6 +3,7 @@
 namespace App\Validation;
 
 use App\Validation\Rules\Rule;
+use App\Validation\Errors\ErrorBag;
 
 class Validator
 {
@@ -18,11 +19,17 @@ class Validator
 
     /**
      *
+     */
+    protected $errors;
+
+    /**
+     *
      * @param array $data
      */
     public function __construct(array $data)
     {
         $this->data = $data;
+        $this->errors = new ErrorBag();
     }
 
     /**
@@ -47,7 +54,8 @@ class Validator
     protected function validateRule($field, Rule $rule)
     {
         if (!$rule->required($field, $this->getFieldValue($field, $this->data))) {
-            //
+            //dump($rule->getMessage($field));
+            $this->errors->add($field, $rule->getMessage($field));
         }
     }
 

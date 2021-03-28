@@ -2,17 +2,25 @@
 
 use App\Validation\Validator;
 use App\Validation\Rules\RequiredRule;
+use App\Validation\Rules\EmailRule;
 
 require_once 'vendor/autoload.php';
 
 $validator = new Validator([
-    'name' => 'Alex'
+    'first_name' => '',
+    'email' => '',
 ]);
 
 $validator->setRules([
-    'name' => [
+    'first_name' => [
         new RequiredRule(),
+    ],
+    'email' => [
+        new RequiredRule(),
+        new EmailRule(),
     ]
 ]);
 
 $validator->validate();
+
+dump($validator);
