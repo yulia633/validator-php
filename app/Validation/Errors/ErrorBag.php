@@ -17,5 +17,4 @@ class ErrorBag
     {
         $this->errors[$key][] = $value;
     }
-
 }
