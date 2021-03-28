@@ -49,6 +49,8 @@ class Validator
                 $this->validateRule($field, $rule);
             }
         }
+
+        return $this->errors->hasErrors();
     }
 
     protected function validateRule($field, Rule $rule)
@@ -62,5 +64,10 @@ class Validator
     protected function getFieldValue($field, $data)
     {
         return $data[$field] ?? null;
+    }
+
+    public function getErrors()
+    {
+        return $this->errors->getErrors();
     }
 }

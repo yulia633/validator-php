@@ -7,8 +7,8 @@ use App\Validation\Rules\EmailRule;
 require_once 'vendor/autoload.php';
 
 $validator = new Validator([
-    'first_name' => '',
-    'email' => '',
+    'first_name' => 'Jul',
+    'email' => 'ya@ya.ru',
 ]);
 
 $validator->setRules([
@@ -21,6 +21,12 @@ $validator->setRules([
     ]
 ]);
 
-$validator->validate();
+// $validator->validate();
 
-dump($validator);
+// dump($validator);
+
+if (!$validator->validate()) {
+    dump($validator->getErrors());
+} else {
+    dump('Passed!');
+}

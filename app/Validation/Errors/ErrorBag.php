@@ -17,4 +17,21 @@ class ErrorBag
     {
         $this->errors[$key][] = $value;
     }
+
+    /**
+     * Есть ли ошибки
+     * @return boolean
+     */
+    public function hasErrors()
+    {
+        return empty($this->errors);
+    }
+
+    /**
+     *
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
 }
